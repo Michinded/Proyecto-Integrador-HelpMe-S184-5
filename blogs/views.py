@@ -4,10 +4,12 @@ from datetime import datetime
 
 # Create your views here.
 def register_user(request):
-    return render(request, 'signup.html')
+    year = datetime.now().year
+    return render(request, 'signup.html', {'year': year})
 
 def login_user(request):
-    return render(request, 'login.html')
+    year = datetime.now().year
+    return render(request, 'login.html', {'year': year})
 
 def inicio(request):
     year = datetime.now().year
