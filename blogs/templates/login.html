@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-Mx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+</head>
+<body>
+    <center>
+        <h1>INICIAR SESIÓN</h1>
+
+        <!-- Formualrio de inicio de sesión -->
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Usuario</td>
+                    <td><input type="text" name="email" placeholder="Ingrese su correo"></td>
+                </tr>
+                <tr>
+                    <td>Contraseña</td>
+                    <td><input type="password" name="password" placeholder="Ingrese su contraseña"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Iniciar sesión"></td>
+                </tr>
+            </table>
+        </form>
+
+    </center>
+
+    <div>
+        No tienes una cuenta?
+        <a href="{% url 'signup' %}">Registrarse</a>
+    </div>
+
+    <div>
+        Volvamos al inicio
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </div>
+
+</body>
+</html>
