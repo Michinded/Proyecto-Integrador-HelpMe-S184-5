@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'blogs'
 ]
 
-CSFR_TRUSTED_ORIGINS = ['https://web-production-110e9.up.railway.app']
+CSFR_TRUSTED_ORIGINS = ['https://web-production-110e9.up.railway.app', 'localhost', '127.0.0.1']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
