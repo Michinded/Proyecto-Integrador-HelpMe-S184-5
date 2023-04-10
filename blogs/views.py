@@ -18,3 +18,7 @@ def inicio(request):
 def foro(request):
     year = datetime.now().year
     return render(request, 'foro.html', {'year': year})
+
+def policies(request):
+    year = datetime.now().year
+    return render(request, 'policies.html', {'year': year})
