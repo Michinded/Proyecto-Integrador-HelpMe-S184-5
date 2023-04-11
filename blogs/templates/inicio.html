@@ -1,18 +1,18 @@
 {% extends 'template-inicio.html' %}
+{% load static %}
 {% block title %}Inicio{% endblock %}
+{% block home %}href="{% url 'inicio' %}"{% endblock %} 
 {% block content %}
-    <center>
-        <h1>BIENVENIDO AL PROYECTO "HELP ME"</h1>
-        <h2>¿Qué deseas hacer?</h2>
-        <div>
-            <a href="{% url 'login' %}">Iniciar sesión</a>
-        </div>
-        <div>
-            <a href="{% url 'signup' %}">Registrarse</a>
-        </div>
-        <div>
-            <a href="{% url 'foro' %}">Ingresar como invitado</a>
-        </div>
-        
-    </center>
+<div style="margin-top: 80px;">
+    <img src="{% static '/imagenes/imagen.png' %}" class="img-fluid" alt="Responsive image" style="width: 100%; height: 100%;">
+</div>
+  <div class="container text-center mt-5" style="margin-top: 40px;">
+    <h1>BIENVENIDO AL PROYECTO "HELP ME"</h1>
+    <h2>¿Qué deseas hacer?</h2>
+    <div class="d-grid gap-3 col-md-6 mx-auto">
+      <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+      <a href="{% url 'signup' %}" class="btn btn-primary">Registrarse</a>
+      <a href="{% url 'foro' %}" class="btn btn-primary">Ingresar como invitado</a>
+    </div>
+  </div>  
 {% endblock %}

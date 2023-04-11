@@ -1,9 +1,12 @@
 {% extends 'template-inicio.html' %}
     
 {% block title %}Registrarse{% endblock %}
+
+{% block home %}href="{% url 'signup' %}"{% endblock %} 
+
 {% block content %}
     <center>
-        <h1>Registrarse</h1>
+        <h1 style="margin-top: 80px;">Registrarse</h1>
         <!-- Formualrio de registro -->
         <form action="" method="POST">
             {% csrf_token %}
@@ -13,13 +16,33 @@
                     <td><input type="text" name="name" placeholder="Ingrese su nombre(s)"></td>
                 </tr>
                 <tr>
-                    <td>Apellido</td>
+                    <td>Apellido(s)</td>
                     <td><input type="text" name="last_name" placeholder="Ingrese sus apellidos"></td>
                 </tr>
                 <tr>
-                    <td>Usuario</td>
+                    <td>Nombre de suario</td>
                     <td><input type="text" name="username" placeholder="Ingrese su nombre de usuario"></td>
                 </tr>
+
+                <tr>
+                    <td>Fecha de nacimiento</td>
+                    <td><input type="date" name="birth_date"></td>
+                </tr>
+
+                <tr>
+                    <td>Carrera</td>
+                    <td>
+                        <select name="carrera">
+                            <option value="1">Ingeniería en Sistemas Computacionales</option>
+                            <option value="2">Ingeniería Mecatrónica</option>
+                            <option value="3">Ingeniería en Tecnologías de Manufactura</option>
+                            <option value="4">Ingeniería en Redes y Telecomunicaciones</option>
+                            <option value="5">Ingeniería en Tecnología Automotriz</option>
+                            <option value="6">Licenciatura en Negocios Internacionales</option>
+                            <option value="7">Licenciatura en Administración y Gestión Empresarial</option>
+                            
+                </tr>
+
                 <tr>
                     <td>Correo</td>
                     <td><input type="email" name="email" placeholder="Ingrese su correo"></td>

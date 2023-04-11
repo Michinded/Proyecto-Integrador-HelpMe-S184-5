@@ -1,9 +1,12 @@
 {% extends 'template-inicio.html' %}
 
 {% block title %}Iniciar sesión{% endblock %}
+
+{% block home %}href="{% url 'login' %}"{% endblock %} 
+
 {% block content %}
     <center>
-        <h1>INICIAR SESIÓN</h1>
+        <h1 style="margin-top: 80px;">INICIAR SESIÓN</h1>
 
         <!-- Formualrio de inicio de sesión -->
         <form action="" method="POST">
