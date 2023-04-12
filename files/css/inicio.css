@@ -1,0 +1,68 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #333333;
+    color: aliceblue;
+    margin: 0;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -75px 0 0 -35px;
+    width: 70px;
+    height: 150px;
+  }
+  
+  @keyframes loading {
+    0%, 100% {
+      height: 10px;
+      margin-top: 25px;
+    }
+  
+    50%{
+      height: 50px;
+      margin-top: 0px;
+    }
+  }
+  
+  li.loaderli {
+    background-color: #015aff;
+    width: 10px;
+    height: 10px;
+    float: left;
+    margin-right: 5px;
+    box-shadow: 0px 100px 20px rgba(0, 0, 0, 0.2);
+    animation: loading 1s ease-in-out infinite;
+  }
+  
+  li.loaderli:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  li.loaderli:nth-child(2) {
+    animation-delay: -0.2s;
+  }
+  
+  li.loaderli:nth-child(3) {
+    animation-delay: -0.4s;
+  }
+  
+  li.loaderli:nth-child(4) {
+    animation-delay: -0.6s;
+  }
+  
+  li.loaderli:nth-child(5) {
+    margin-right: 0;
+    animation-delay: -0.8s;
+  }
+  

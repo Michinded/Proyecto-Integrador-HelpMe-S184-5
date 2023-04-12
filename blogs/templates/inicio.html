@@ -4,15 +4,12 @@
 {% block home %}href="{% url 'inicio' %}"{% endblock %} 
 {% block content %}
 <div style="margin-top: 80px;">
-    <center>
-        <img src="{% static 'images/codes.png' %}" alt="Ejemplo" height="100px" width="150px">
-    </center>
-    
 </div>
-  <div class="container text-center mt-5" style="margin-top: 40px;">
+  <div class="container text-center mt-5" style="margin-top: 50px;">
     <h1>BIENVENIDO AL PROYECTO "HELP ME"</h1>
+    <img src="{% static 'images/logo1.png' %}" alt="Logo" height="100px" width="100px">
     <h2>¿Qué deseas hacer?</h2>
-    <div class="d-grid gap-3 col-md-6 mx-auto">
+    <div class="d-grid gap-3 col-md-6 mx-auto" style="margin-top: 40px;">
       <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
       <a href="{% url 'signup' %}" class="btn btn-primary">Registrarse</a>
       <a href="{% url 'foro' %}" class="btn btn-primary">Ingresar como invitado</a>
