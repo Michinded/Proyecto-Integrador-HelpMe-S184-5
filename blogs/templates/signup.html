@@ -5,73 +5,98 @@
 {% block home %}href="{% url 'signup' %}"{% endblock %} 
 
 {% block content %}
-    <center>
-        <h1 style="margin-top: 80px;">Registrarse</h1>
-        <!-- Formualrio de registro -->
-        <form action="" method="POST">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td>Nombre</td>
-                    <td><input type="text" name="name" placeholder="Ingrese su nombre(s)"></td>
-                </tr>
-                <tr>
-                    <td>Apellido(s)</td>
-                    <td><input type="text" name="last_name" placeholder="Ingrese sus apellidos"></td>
-                </tr>
-                <tr>
-                    <td>Nombre de suario</td>
-                    <td><input type="text" name="username" placeholder="Ingrese su nombre de usuario"></td>
-                </tr>
-
-                <tr>
-                    <td>Fecha de nacimiento</td>
-                    <td><input type="date" name="birth_date"></td>
-                </tr>
-
-                <tr>
-                    <td>Carrera</td>
-                    <td>
-                        <select name="carrera">
-                            <option value="1">Ingeniería en Sistemas Computacionales</option>
-                            <option value="2">Ingeniería Mecatrónica</option>
-                            <option value="3">Ingeniería en Tecnologías de Manufactura</option>
-                            <option value="4">Ingeniería en Redes y Telecomunicaciones</option>
-                            <option value="5">Ingeniería en Tecnología Automotriz</option>
-                            <option value="6">Licenciatura en Negocios Internacionales</option>
-                            <option value="7">Licenciatura en Administración y Gestión Empresarial</option>
-                            
-                </tr>
-
-                <tr>
-                    <td>Correo</td>
-                    <td><input type="email" name="email" placeholder="Ingrese su correo"></td>
-                </tr>
-                <tr>
-                    <td>Contraseña</td>
-                    <!--  Contraseña de minimo 8 caracteres  -->
-                    <td><input type="password" name="password1" pattern=".{8,}" placeholder="Minimo 8 caracteres"></td>
-                </tr>
-                <tr>
-                    <td>Confirmar contraseña</td>
-                    <td><input type="password" name="password2" pattern=".{8,}" placeholder="Repita la contraseña"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Registrarse"></td>
-                </tr>
-            </table>
-        </form>
-
-        <div>
-            Ya tienes una cuenta?
-            <a href="{% url 'login' %}">Iniciar sesión</a>
+<div style="margin-top: 80px;">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card bg-dark">
+          <div class="card-body">
+            <h1 class="text-center mb-4 text-light">Registrarse</h1>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="name" class="text-light">Nombre:</label>
+                <input type="text" class="form-control bg-secondary text-light" id="name" name="name" placeholder="Ingrese su nombre(s)">
+              </div>
+              <div class="form-group">
+                <label for="last_name" class="text-light">Apellido(s):</label>
+                <input type="text" class="form-control bg-secondary text-light" id="last_name" name="last_name" placeholder="Ingrese sus apellidos">
+              </div>
+              <div class="form-group">
+                <label for="username" class="text-light">Nombre de usuario:</label>
+                <input type="text" class="form-control bg-secondary text-light" id="username" name="username" placeholder="Ingrese su nombre de usuario">
+              </div>
+              <div class="form-group">
+                <label for="birth_date" class="text-light">Fecha de nacimiento:</label>
+                <input type="date" class="form-control bg-secondary text-light" id="birth_date" name="birth_date">
+              </div>
+              <div class="form-group">
+                <label for="carrera" class="text-light">Carrera:</label>
+                <select class="form-control bg-secondary text-light" id="carrera" name="carrera">
+                  <option value="1">Ingeniería en Sistemas Computacionales</option>
+                  <option value="2">Ingeniería Mecatrónica</option>
+                  <option value="3">Ingeniería en Tecnologías de Manufactura</option>
+                  <option value="4">Ingeniería en Redes y Telecomunicaciones</option>
+                  <option value="5">Ingeniería en Tecnología Automotriz</option>
+                  <option value="6">Licenciatura en Negocios Internacionales</option>
+                  <option value="7">Licenciatura en Administración y Gestión Empresarial</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="email" class="text-light">Correo:</label>
+                <input type="email" class="form-control bg-secondary text-light" id="email" name="email" placeholder="Ingrese su correo">
+              </div>
+              <div class="form-group">
+                <label for="password1" class="text-light">Contraseña:</label>
+                <div class="input-group">
+                  <input type="password" class="form-control bg-secondary text-light" id="password1" name="password1" placeholder="Minimo 8 caracteres">
+                  <button class="btn btn-secondary" type="button" id="show_password1">Mostrar</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password2" class="text-light">Confirmar contraseña:</label>
+                <div class="input-group">
+                    <input type="password" class="form-control bg-secondary text-light" id="password2" name="password2" placeholder="Ingrese su contraseña de nuevo">
+                    <button class="btn btn-secondary" type="button" id="show_password2">Mostrar</button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-4">Registrarse</button>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+</div>
 
-        <div>
-            Volvamos al inicio
-            <a href="{% url 'inicio' %}">Inicio</a>
-        </div>
+<script>
+      // Mostrar u ocultar la contraseña en la sección de registro
+    const passwordInput = document.querySelector('#password1');
+    const passwordInput2 = document.querySelector('#password2');
+    const showPasswordButton = document.querySelector('#show_password1');
+    const showPasswordButton2 = document.querySelector('#show_password2');
 
-    </center>
+    
+    showPasswordButton.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            showPasswordButton.textContent = 'Ocultar';
+        } else {
+            passwordInput.type = 'password';
+            showPasswordButton.textContent = 'Mostrar';
+        }
+    });
+
+    showPasswordButton2.addEventListener('click', () => {
+        if (passwordInput2.type === 'password') {
+            passwordInput2.type = 'text';
+            showPasswordButton2.textContent = 'Ocultar';
+        } else {
+            passwordInput2.type = 'password';
+            showPasswordButton2.textContent = 'Mostrar';
+        }
+    });
+
+</script>
 
 {% endblock %}
