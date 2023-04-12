@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'blogs'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-110e9.up.railway.app', 'http://localhost', 'http://127.0.0.1', 'https://web-production-110e9.up.railway.app/admin']
+CSRF_TRUSTED_ORIGINS = ['https://help-me.up.railway.app', 'http://localhost', 'http://127.0.0.1', 'https://help-me.up.railway.app/admin']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
