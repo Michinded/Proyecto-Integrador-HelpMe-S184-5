@@ -1,5 +1,5 @@
 {% extends 'template-inicio.html' %}
-
+{% load static %}
 {% block title %}Iniciar sesión{% endblock %}
 
 {% block home %}href="{% url 'login' %}"{% endblock %} 
@@ -12,6 +12,9 @@
             <div class="card bg-dark">
               <div class="card-body">
                 <h1 class="text-center mb-4 text-light">INICIAR SESIÓN</h1>
+                <center>
+                    <img src="{% static 'images/logo1.png' %}" alt="Logo" height="120px" width="120px">
+                </center>
                 <form action="" method="POST">
                   {% csrf_token %}
                   <div class="form-group">
