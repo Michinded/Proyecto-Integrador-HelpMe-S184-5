@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('foro/', views.foro, name='foro'),
     path('policies/', views.policies, name='policies'),
+    path('about/', views.about, name='about'),
 ]

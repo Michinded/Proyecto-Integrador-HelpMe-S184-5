@@ -22,3 +22,7 @@ def foro(request):
 def policies(request):
     year = datetime.now().year
     return render(request, 'policies.html', {'year': year})
+
+def about(request):
+    year = datetime.now().year
+    return render(request, 'about.html', {'year': year})
