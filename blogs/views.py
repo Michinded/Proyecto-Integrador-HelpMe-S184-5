@@ -26,3 +26,7 @@ def policies(request):
 def about(request):
     year = datetime.now().year
     return render(request, 'about.html', {'year': year})
+
+def publicaciones(request):
+    year = datetime.now().year
+    return render(request, 'publicaciones.html', {'year': year})

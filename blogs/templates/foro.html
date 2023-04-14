@@ -1,11 +1,111 @@
 {% extends 'foro-base.html' %}
-
+{% load static %}
 {% block title %}Foro{% endblock %} 
 
-{% block content %} 
-
-    <div>
-        <h1>Foro</h1>
+{% block content %}
+<div class="container mt-5">
+    <h1>HELP ME</h1>
+    <h3>Bienvenido: username</h3>
+</div>
+   <!-- Contenido principal -->
+<div class="container-fluid bg-dark text-light py-3">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8">
+          <!-- Formulario para publicar -->
+            <h2>Publicar una solicitud</h2>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group" style="margin-top: 10px;">
+              <label for="titulo">Título*:</label>
+              <input type="text" class="form-control bg-secondary text-light" id="titulo" placeholder="Ingresa el título" required>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+              <label for="contenido">Contenido*:</label>
+              <textarea class="form-control bg-secondary text-light" id="contenido" rows="5" placeholder="Escribe aquí tus dudas, preguntas o tus ofertas de ayuda etc." required></textarea>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <label for="categoria">Categorías*:</label>
+                <input type="text" class="form-control bg-secondary text-light" id="categoria" placeholder="Ingresa la o las categorias de tu publicación" required>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <label for="fecha">Fecha y hora. Tienes algún horario? Ingresalo (OPCIONAL):</label>
+                <input type="datetime-local" class="form-control bg-secondary text-light" id="fecha">
+              </div>
+              <div class="form-group" style="margin-top: 10px;">
+                <label for="info">Nota: Todos los campos marcados con un * son obligatorios.</label>
+              </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Publicar</button>
+          </form>
+          <div style="margin-top: 20px;">
+            <!-- Agregar un separador -->
+            <hr class="bg-light">
+            <h3>Publicaciones recientes</h3>
+          </div>
+          <!-- Listado de publicaciones -->
+          <div class="card my-3 bg-secondary">
+            <div class="card-body">
+              <h5 class="card-title">Título de la publicación 1</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Categoría 1 | Autor: usuario1</h6>
+              <p class="card-text">Contenido de la publicación 1</p>
+              <a href="#" class="card-link">Comentar</a>
+              <a href="#" class="card-link">Compartir</a>
+          </div>
+      </div>
+  
+      <div class="card my-3 bg-secondary">
+        <div class="card-body">
+          <h5 class="card-title">Título de la publicación 2</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Categoría 2 | Autor: usuario2</h6>
+          <p class="card-text">Contenido de la publicación 2</p>
+          <a href="#" class="card-link">Comentar</a>
+          <a href="#" class="card-link">Compartir</a>
+        </div>
+      </div>
+  
+      <div class="card my-3 bg-secondary">
+        <div class="card-body">
+          <h5 class="card-title">Título de la publicación 3</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Categoría 1 | Autor: usuario3</h6>
+          <p class="card-text">Contenido de la publicación 3</p>
+          <a href="#" class="card-link">Comentar</a>
+          <a href="#" class="card-link">Compartir</a>
+        </div>
+      </div>
     </div>
+  
+      <!-- Sección de anuncios -->
+      
+    <div class="col-md-4">
+      <hr class="bg-light">
+      <img src="{% static 'images/logo3.png' %}" alt="Logo" height="50px" width="50px">
+      <h2>Accesos rápidos</h2>
+      <div class="card my-3 bg-secondary">
+         
+        <div class="card-body">
+          <h5 class="card-title">Mi perfil</h5>
+          <a href="#">Ir a mi perfil</a>
+        </div>
+      </div>
+  
+      <div class="card my-3 bg-secondary">
+        <div class="card-body">
+          <h5 class="card-title">Buscar usuarios</h5>
+        <a href="#">Ir a buscar usuarios</a>
+      </div>
+    </div>
+
+    <div class="card my-3 bg-secondary">
+        <div class="card-body">
+          <h5 class="card-title">Todas las publicaciones</h5>
+        <a href="{% url 'publicaciones' %}">Ver todas las publicaciones</a>
+      </div>
+    </div>
+
+    <hr class="bg-light">
+  </div>
+</div>
+</div>
+</div>
 
 {% endblock %}
