@@ -6,6 +6,9 @@
     background-color: #333333;
     color: aliceblue;
     margin: 0;
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: 1fr auto;
   }
   
   ul {

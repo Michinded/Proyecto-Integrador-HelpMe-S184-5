@@ -30,3 +30,7 @@ def about(request):
 def publicaciones(request):
     year = datetime.now().year
     return render(request, 'publicaciones.html', {'year': year})
+
+def perfil(request):
+    year = datetime.now().year
+    return render(request, 'perfil.html', {'year': year})

@@ -26,4 +26,5 @@ urlpatterns = [
     path('policies/', views.policies, name='policies'),
     path('about/', views.about, name='about'),
     path('foro/publicaciones/', views.publicaciones, name='publicaciones'),
+    path('foro/perfil/', views.perfil, name='perfil'),
 ]
