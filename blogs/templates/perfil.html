@@ -5,8 +5,45 @@
 {% block content %}
 
 
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-md-3">
+        <!-- Agregamos la foto de perfil -->
+        <img src="tu_foto_de_perfil.jpg" class="img-fluid rounded-circle mb-3">
+        <!-- Agregamos el nombre de usuario -->
+        <h4>@tu_nombre_de_usuario</h4>
+      </div>
+      <div class="col-md-9">
+        <!-- Agregamos una caja para las publicaciones -->
+        <div class="card">
+          <div class="card-header">
+            <h5>Mis publicaciones</h5>
+          </div>
+          <div class="card-body">
+            <!-- Aquí puedes agregar las publicaciones -->
+            <p>Publicación 1</p>
+            <p>Publicación 2</p>
+            <p>Publicación 3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 <h1>Vista para el perfil</h1>
 
+<br>
+{% for user in usuario %}
+    <p>{{ user.username }}</p>
+    {% if user.foto_perfil %}
+        <img src="{{ user.foto_perfil.url }}" alt="{{ user.username }} picture">
+    {% else %}
+        <p>No se ha cargado una foto de perfil.</p>
+    {% endif %}
+{% endfor %}
 
+
+<h1>Fin</h1>
 
 {% endblock %}
