@@ -8,12 +8,22 @@ import uuid
 def get_image_upload_path(instance, filename):
     return 'profile_pics/{}/{}'.format(instance.username, filename)
 
+
+def get_image_upload_path2(instance, filename):
+    return 'profile_pics/{}/{}'.format(instance.user.username, filename)
+
 #Tabla de carreras
 class Carrera(models.Model):
     id_carrera = models.AutoField(primary_key=True)
     nombre_carrera = models.CharField(max_length=255)
 
-#Tabla de usuarios
+#Tabla de datos extra de usuarios
+class PerfilUsuario(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
+    carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
+    foto_perfil = models.ImageField(upload_to=get_image_upload_path2, null=True, blank=True)
+
 
 class Usuario(models.Model):
     usuario_id = models.AutoField(primary_key=True)

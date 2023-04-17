@@ -9,7 +9,7 @@ from .models import Usuario, Carrera
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 #from django.http import HttpResponse
-from blogs.formulario import RegistroForm
+from blogs.formulario import RegistroForm, RegistroExtra
 
 def encriptar_contrasena(contrasena):
     return contrasena
@@ -57,7 +57,6 @@ def registrarse(request):
         else:
             form3 = RegistroForm(request.POST)
             return render(request, 'registrarse.html', {'error': 'Las contraseñas no coinciden', 'year': year, 'form': form3})
-
         
 
 
