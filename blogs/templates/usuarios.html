@@ -1,0 +1,80 @@
+{% extends 'foro-base.html'%}
+{% load static %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+
+<style>
+    .card-img-fixed-height {
+        height: 150px; /* ajusta la altura a tu gusto */
+        object-fit: cover;
+    }
+</style>
+
+<div class="container">
+    {% if user.is_authenticated %}
+    <h3>Bienvenido: {{ request.user.username }}</h3>
+    {% else %}
+    <h3>Bienvenido: Anonimo</h3>
+    {% endif %}
+</div>
+
+<div class="container my-5">
+    <h1>Usuarios registrados</h1>
+    <form class="my-3" action="POST" method="GET">
+        <!--INPUT DE BÚSQUEDA -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar usuario" name="q" value="">
+        </div>
+    </form>
+    <div class="row bg-dark" id="usuarios-container">
+        {% for usuario in usuarios %}
+        <div class="col-sm-6 col-md-4 mb-3" data-username="{{ usuario.username }}" data-fecha-nacimiento="{{ usuario.date_joined }}" data-carrera="{{ usuario.perfilusuario.carrera.nombre_carrera }}" data-name="{{ usuario.first_name }}" data-lastn="{{ usuario.last_name }}">
+            <div class="card">
+                {% if usuario.perfilusuario.foto_perfil %}
+                <img src="{{ usuario.perfilusuario.foto_perfil.url }}" class="card-img-top img-fluid img-thumbnail card-img-fixed-height" alt="Foto de perfil de {{ usuario.username }}">
+                {% else %}
+                    <img src="{% static 'images/logo1.png' %}" class="card-img-top img-fluid img-thumbnail card-img-fixed-height" alt="Foto de perfil predeterminada">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">Username: {{ usuario.username }}</h5>
+                    <p class="card-text">Nombre: {{ usuario.first_name }} {{usuario.last_name}}</p>
+                    <p class="card-text">Carrera: {{ usuario.perfilusuario.carrera.nombre_carrera }}</p>
+                    <p class="card-text">Se unió: {{ usuario.date_joined }}</p>
+                    <a href="#" class="btn btn-primary">Ver perfil</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Scrip de búsqueda -->
+
+<script>
+    const usuariosContainer = document.getElementById('usuarios-container');
+    const tarjetasUsuarios = usuariosContainer.querySelectorAll('.col-sm-6.col-md-4.mb-3');
+    const inputBusqueda = document.querySelector('input[name="q"]');
+
+    function filtrarUsuarios() {
+        const valorBusqueda = inputBusqueda.value.toLowerCase();
+
+        tarjetasUsuarios.forEach((tarjetaUsuario) => {
+            const username = tarjetaUsuario.getAttribute('data-username').toLowerCase();
+            const fechaNacimiento = tarjetaUsuario.getAttribute('data-fecha-nacimiento').toLowerCase();
+            const carrera = tarjetaUsuario.getAttribute('data-carrera').toLowerCase();
+            const name = tarjetaUsuario.getAttribute('data-name').toLowerCase();
+            const lastn = tarjetaUsuario.getAttribute('data-lastn').toLowerCase();
+
+            if (username.includes(valorBusqueda) || fechaNacimiento.includes(valorBusqueda) || carrera.includes(valorBusqueda) || name.includes(valorBusqueda) || lastn.includes(valorBusqueda)) {
+                tarjetaUsuario.style.display = 'block';
+            } else {
+                tarjetaUsuario.style.display = 'none';
+            }
+        });
+    }
+
+    inputBusqueda.addEventListener('input', filtrarUsuarios);
+</script>
+
+
+{% endblock %}

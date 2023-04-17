@@ -16,14 +16,7 @@ from django.contrib.auth.decorators import login_required
 def encriptar_contrasena(contrasena):
     return contrasena
 
-# Clase registrarse
-"""
-class RegistrarUsuario(CreateView):
-    model = User
-    template_name = "registrarse.html"
-    form_class = RegistroForm
-    success_url = "/foro"
-"""
+
 def registrarse(request):
     if request.user.is_authenticated:
         return redirect('foro')
@@ -208,3 +201,10 @@ def perfil(request):
     usuario = User.objects.all()
     carrera = Carrera.objects.all()
     return render(request, 'perfil.html', {'year': year, 'usuario': usuario, 'carrera': carrera})
+
+@login_required
+def usuarios_list(request):
+    year = datetime.now().year
+    usuarios = User.objects.select_related('perfilusuario', 'perfilusuario__carrera').all()
+    return render(request, 'usuarios.html', {'year': year, 'usuarios': usuarios})
+

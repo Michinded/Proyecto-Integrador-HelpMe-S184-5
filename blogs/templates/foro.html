@@ -94,24 +94,31 @@
       <img src="{% static 'images/logo3.png' %}" alt="Logo" height="50px" width="50px">
       <h2>Accesos rápidos</h2>
       <div class="card my-3 bg-secondary">
-         
-        <div class="card-body">
+      {% if user.is_authenticated %}
+        <div class="card-body text-light">
           <h5 class="card-title">Mi perfil</h5>
-          <a href="#">Ir a mi perfil</a>
+          <a href="#" class="text-light">Ir a mi perfil</a>
         </div>
       </div>
   
       <div class="card my-3 bg-secondary">
-        <div class="card-body">
+        <div class="card-body text-light">
           <h5 class="card-title">Buscar usuarios</h5>
-        <a href="#">Ir a buscar usuarios</a>
+        <a href="{% url 'usuarios' %}" class="text-light">Ir a buscar usuarios</a>
       </div>
     </div>
-
+    {% else %}
     <div class="card my-3 bg-secondary">
-        <div class="card-body">
+      <div class="card-body text-light">
+        <h5 class="card-title">Inicie sesion para ver más contenido</h5>
+      <a href="{% url 'login' %}" class="text-light">Iniciar sesion</a>
+    </div>
+  </div>
+    {% endif %}
+    <div class="card my-3 bg-secondary">
+        <div class="card-body text-light">
           <h5 class="card-title">Todas las publicaciones</h5>
-        <a href="{% url 'publicaciones' %}">Ver todas las publicaciones</a>
+        <a href="#" class="text-light">Ver todas las publicaciones</a>
       </div>
     </div>
 
