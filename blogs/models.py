@@ -17,6 +17,9 @@ class Carrera(models.Model):
     id_carrera = models.AutoField(primary_key=True)
     nombre_carrera = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.nombre_carrera
+
 #Tabla de datos extra de usuarios
 class PerfilUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
