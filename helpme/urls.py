@@ -20,7 +20,7 @@ from blogs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', views.register_user, name='signup'),
+    #path('signup/', views.register_user, name='signup'),
     path('login/', views.login_user, name='login'),
     path('', views.inicio, name='inicio'),
     path('foro/', views.foro, name='foro'),

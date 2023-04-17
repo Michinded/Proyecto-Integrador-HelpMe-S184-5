@@ -27,7 +27,10 @@ class PerfilUsuario(models.Model):
     carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
     foto_perfil = models.ImageField(upload_to=get_image_upload_path2, null=True, blank=True)
 
+    def __str__(self):
+        return self.user.username
 
+"""
 class Usuario(models.Model):
     usuario_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
@@ -106,3 +109,4 @@ class Profiles(models.Model):
         super().save(*args, **kwargs)
 
         super().save(*args, **kwargs)
+"""

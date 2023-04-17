@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from datetime import datetime
-from .models import Pubs
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
-from .models import Usuario, Carrera
+from .models import Carrera, PerfilUsuario
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 #from django.http import HttpResponse
+#from .models import Usuario
 from blogs.formulario import RegistroForm, RegistroExtra
+from django.db import IntegrityError
 
 def encriptar_contrasena(contrasena):
     return contrasena
@@ -25,8 +26,9 @@ class RegistrarUsuario(CreateView):
 def registrarse(request):
     year = datetime.now().year
     form = RegistroForm()
+    extraf = RegistroExtra()
     if request.method == 'GET':
-        return render(request, 'registrarse.html', {'form': form, 'year': year, 'error': ''})
+        return render(request, 'registrarse.html', {'form': form, 'year': year, 'error': '', 'extraf': extraf})
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
@@ -39,7 +41,7 @@ def registrarse(request):
                 # Verificar si el correo electrónico ya está en uso
                 if User.objects.filter(email=email).exists():
                     formm = RegistroForm(request.POST)
-                    return render(request, 'registrarse.html', {'error': 'El correo electrónico ya está en uso', 'year': year, 'form': formm})
+                    return render(request, 'registrarse.html', {'error': 'El correo electrónico ya está en uso', 'year': year, 'form': formm, 'extraf': extraf})
 
                 user = User.objects.create_user(
                     username=username,
@@ -50,18 +52,31 @@ def registrarse(request):
                 )
                 user.save()
                 login(request, user)
+                foto_perfil = request.FILES.get('foto_perfil')
+                carrera_id = request.POST.get('carrera')
+                fecha_nacimiento = request.POST.get('fecha_nacimiento')
+
+                infoextra = PerfilUsuario(
+                    user_id=user.id,
+                    foto_perfil=foto_perfil,
+                    carrera_id=carrera_id,
+                    fecha_nacimiento=fecha_nacimiento,
+                )
+                infoextra.save()
+
                 return redirect('foro')
-            except:
+            except IntegrityError:
                 form2 = RegistroForm(request.POST)
-                return render(request, 'registrarse.html', {'error': 'El nombre de usuario ya existe', 'year': year, 'form': form2})
+                return render(request, 'registrarse.html', {'error': 'El nombre de usuario ya existe', 'year': year, 'form': form2, 'extraf': extraf})
         else:
             form3 = RegistroForm(request.POST)
-            return render(request, 'registrarse.html', {'error': 'Las contraseñas no coinciden', 'year': year, 'form': form3})
+            return render(request, 'registrarse.html', {'error': 'Las contraseñas no coinciden', 'year': year, 'form': form3, 'extraf': extraf})
         
 
 
 
 # Create your views here.
+"""
 def register_user(request):
     if 'usuario_id' in request.session:
         return redirect('foro')
@@ -116,7 +131,7 @@ def register_user(request):
     else:
         year = datetime.now().year
         return render(request, 'signup.html', {'year': year})
-
+"""
 def login_user(request):
     if 'usuario_id' in request.session:
         return redirect('foro')
@@ -152,7 +167,7 @@ def perfil(request):
         #return redirect('inicio')
     #usuario_id = request.session['usuario_id']
     #usuario = Usuario.objects.get(id=usuario_id)
-    pubs = Pubs.objects.all()
-    usuario = Usuario.objects.all()
+    #pubs = Pubs.objects.all()
+    usuario = User.objects.all()
     carrera = Carrera.objects.all()
-    return render(request, 'perfil.html', {'year': year, 'pubs': pubs, 'usuario': usuario, 'carrera': carrera})
+    return render(request, 'perfil.html', {'year': year, 'usuario': usuario, 'carrera': carrera})

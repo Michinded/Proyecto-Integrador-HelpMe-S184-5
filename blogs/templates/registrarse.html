@@ -25,7 +25,8 @@
   
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="date"] {
       display: block;
       width: 100%;
       height: 40px;
@@ -55,6 +56,8 @@
       font-size: 14px;
       color: #666;
     }
+
+
   </style>
 
 
@@ -68,14 +71,16 @@
               <div class="d-flex justify-content-center mb-4">
                 <img src="{% static 'images/logo1.png' %}" alt="Logo" height="120px" width="120px">
               </div>
-              <form method="post" class="text-light">
+              <form method="post" class="text-light" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!--  Nombre  -->
                 {{ form.first_name.label_tag }} 
                 {{ form.first_name }}
                 <!--  Apellido  -->
+                
                 {{ form.last_name.label_tag }} 
                 {{ form.last_name }}
+                
                 <!--  Username  -->
                 {{ form.username.label_tag }} 
                 {{ form.username }}
@@ -88,6 +93,22 @@
                 <!--  Confirmar contraseña  -->
                 {{ form.password2.label_tag }} 
                 {{ form.password2 }}
+
+                <!-- Datos de extraf -->
+                
+                <!--  carrera  -->
+                {{ extraf.carrera.label_tag }} 
+                {{ extraf.carrera }}
+
+                <!--Fecha de nacimiento -->
+                {{ extraf.fecha_nacimiento.label_tag }} 
+                {{ extraf.fecha_nacimiento }}
+
+                <!-- Foto de perfil -->
+                {{ extraf.foto_perfil.label_tag }} 
+                {{ extraf.foto_perfil }}
+                
+                <!--  Boton  -->
                 <div class="d-grid mt-4">
                   <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
                 </div>

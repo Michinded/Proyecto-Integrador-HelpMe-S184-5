@@ -7,6 +7,38 @@ from .models import PerfilUsuario, Carrera
 from django.core.exceptions import ValidationError
 
 class RegistroForm(UserCreationForm):
+    first_name = forms.CharField(
+        label='Nombre', 
+        max_length=30, 
+        widget=forms.TextInput(attrs={'class': 'form-control bg-secondary text-light'})
+    )
+    last_name = forms.CharField(
+        label='Apellidos', 
+        max_length=30, 
+        widget=forms.TextInput(attrs={'class': 'form-control bg-secondary text-light'})
+    )
+    username = forms.CharField(
+        label='Nombre de usuario', 
+        max_length=150, 
+        help_text='Requerido. 150 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente.', 
+        widget=forms.TextInput(attrs={'class': 'form-control bg-secondary text-light'})
+    )
+    email = forms.EmailField(
+        label='Correo electrónico', 
+        max_length=254, 
+        help_text='Se requiere una dirección de correo electrónico válida.', 
+        widget=forms.EmailInput(attrs={'class': 'form-control bg-secondary text-light'})
+    )
+    password1 = forms.CharField(
+        label='Contraseña', 
+        strip=False, 
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-secondary text-light'})
+    )
+    password2 = forms.CharField(
+        label='Confirmar contraseña', 
+        widget=forms.PasswordInput(attrs={'class': 'form-control bg-secondary text-light'}),
+        strip=False,
+    )
 
     class Meta:
         model = User
@@ -26,7 +58,7 @@ class RegistroForm(UserCreationForm):
 class RegistroExtra(forms.ModelForm):
     fecha_nacimiento = forms.DateField(
         label='Fecha de nacimiento',
-        widget=forms.DateInput(attrs={'type': 'date'})
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control bg-secondary text-light'})
     )
     carrera = forms.ModelChoiceField(
         label='Carrera',
@@ -36,7 +68,7 @@ class RegistroExtra(forms.ModelForm):
     )
     foto_perfil = forms.ImageField(
         label='Foto de perfil',
-        widget=forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'form-control-file'}),
+        widget=forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'form-control bg-secondary text-light'}),
         required=False,
         validators=[FileExtensionValidator(['jpg', 'jpeg', 'png'])],
     )
