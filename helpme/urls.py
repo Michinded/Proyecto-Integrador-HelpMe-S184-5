@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blogs import views
-from blogs.views import RegistrarUsuario
+#from blogs.views import RegistrarUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('foro/publicaciones/', views.publicaciones, name='publicaciones'),
     path('foro/perfil/', views.perfil, name='perfil'),
-    path('registarse/', RegistrarUsuario.as_view(), name='registrarse'),
+    path('registrarse/', views.registrarse, name='registrarse'),
+    #path('registrarse/', RegistrarUsuario.as_view(), name='registrarse'),
 ]

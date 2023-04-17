@@ -8,7 +8,13 @@
 {% block content %}
 
 <div style="margin-top: 80px;">
-    
 </div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrarse</button>
+</form>
+<p class="text-danger">{{error}}</p>
 
 {% endblock %}

@@ -9,18 +9,56 @@ from .models import Usuario, Carrera
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 #from django.http import HttpResponse
-
+from blogs.formulario import RegistroForm
 
 def encriptar_contrasena(contrasena):
     return contrasena
 
 # Clase registrarse
+"""
 class RegistrarUsuario(CreateView):
     model = User
     template_name = "registrarse.html"
-    form_class = UserCreationForm
+    form_class = RegistroForm
     success_url = "/foro"
+"""
+def registrarse(request):
+    year = datetime.now().year
+    form = RegistroForm()
+    if request.method == 'GET':
+        return render(request, 'registrarse.html', {'form': form, 'year': year, 'error': ''})
+    else:
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                username = request.POST['username']
+                email = request.POST['email']
+                first_name = request.POST['first_name']
+                last_name = request.POST['last_name']
+                password = request.POST['password1']
 
+                # Verificar si el correo electrónico ya está en uso
+                if User.objects.filter(email=email).exists():
+                    formm = RegistroForm(request.POST)
+                    return render(request, 'registrarse.html', {'error': 'El correo electrónico ya está en uso', 'year': year, 'form': formm})
+
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name,
+                    password=password
+                )
+                user.save()
+                login(request, user)
+                return redirect('foro')
+            except:
+                form2 = RegistroForm(request.POST)
+                return render(request, 'registrarse.html', {'error': 'El nombre de usuario ya existe', 'year': year, 'form': form2})
+        else:
+            form3 = RegistroForm(request.POST)
+            return render(request, 'registrarse.html', {'error': 'Las contraseñas no coinciden', 'year': year, 'form': form3})
+
+        
 
 
 

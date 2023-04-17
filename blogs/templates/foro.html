@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h1>HELP ME</h1>
     {% if user.is_authenticated %}
-    <h3>Bienvenido: HOLA</h3>
+    <h3>Bienvenido: {{ request.user.username }}</h3>
     {% else %}
     <h3>Registrate para poder publicar y comentar</h3>
     {% endif %}

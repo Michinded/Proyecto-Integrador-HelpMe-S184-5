@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blogs'
+    'blogs',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://help-me.up.railway.app', 'http://localhost', 'http://127.0.0.1', 'https://help-me.up.railway.app/admin']
