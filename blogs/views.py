@@ -136,7 +136,34 @@ def login_user(request):
     if 'usuario_id' in request.session:
         return redirect('foro')
     year = datetime.now().year
-    return render(request, 'login.html', {'year': year})
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember = request.POST.get('remember')
+
+        # Autenticar el usuario
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Si el usuario se autentica correctamente, iniciar sesión
+            login(request, user)
+
+            if remember:
+                # Si se seleccionó "Recuérdame", establecer una cookie para mantener la sesión iniciada
+                request.session.set_expiry(1209600)  # 2 semanas de duración
+            else:
+                # Si no se seleccionó "Recuérdame", cerrar la sesión cuando se cierre el navegador
+                request.session.set_expiry(0)
+
+            # Redirigir al usuario a la página de inicio después de iniciar sesión
+            return redirect('foro')
+        else:
+            # Si la autenticación falla, mostrar un mensaje de error
+            error = 'El nombre de usuario o la contraseña son incorrectos.'
+            return render(request, 'login.html', {'error': error, 'year': year})
+    else:
+        # Si la solicitud no es POST, mostrar la página de inicio de sesión
+        return render(request, 'login.html', {'year': year, 'error': ''})
 
 def inicio(request):
     if 'usuario_id' in request.session:
