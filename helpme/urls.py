@@ -29,5 +29,6 @@ urlpatterns = [
     path('foro/publicaciones/', views.publicaciones, name='publicaciones'),
     path('foro/perfil/', views.perfil, name='perfil'),
     path('registrarse/', views.registrarse, name='registrarse'),
+    path('signout/', views.signout, name='signout'),
     #path('registrarse/', RegistrarUsuario.as_view(), name='registrarse'),
 ]

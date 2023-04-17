@@ -24,6 +24,8 @@ class RegistrarUsuario(CreateView):
     success_url = "/foro"
 """
 def registrarse(request):
+    if request.user.is_authenticated:
+        return redirect('foro')
     year = datetime.now().year
     form = RegistroForm()
     extraf = RegistroExtra()
@@ -133,7 +135,7 @@ def register_user(request):
         return render(request, 'signup.html', {'year': year})
 """
 def login_user(request):
-    if 'usuario_id' in request.session:
+    if request.user.is_authenticated:
         return redirect('foro')
     year = datetime.now().year
     if request.method == 'POST':
@@ -165,8 +167,14 @@ def login_user(request):
         # Si la solicitud no es POST, mostrar la página de inicio de sesión
         return render(request, 'login.html', {'year': year, 'error': ''})
 
+
+def signout(request):
+    logout(request)
+    return redirect('inicio')
+
+
 def inicio(request):
-    if 'usuario_id' in request.session:
+    if request.user.is_authenticated:
         return redirect('foro')
     year = datetime.now().year
     return render(request, 'inicio.html', {'year': year})
