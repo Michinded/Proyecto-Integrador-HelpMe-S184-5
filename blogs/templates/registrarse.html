@@ -94,12 +94,15 @@
                 {{ form.password2.label_tag }} 
                 {{ form.password2 }}
 
+                <!-- Botón para mostrar/ocultar contraseñas -->
+                <button type="button" id="show-passwords-btn" class="btn btn-primary" style="margin-bottom: 15px;">Mostrar contraseñas</button>
+                
                 <!-- Datos de extraf -->
                 
                 <!--  carrera  -->
                 {{ extraf.carrera.label_tag }} 
                 {{ extraf.carrera }}
-
+                <div style="margin-top: 15px;"></div>
                 <!--Fecha de nacimiento -->
                 {{ extraf.fecha_nacimiento.label_tag }} 
                 {{ extraf.fecha_nacimiento }}
@@ -131,5 +134,20 @@
     </div>
   </div>
 
+  <script>
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+    const showPasswordsBtn = document.querySelector('#show-passwords-btn');
+
+    function togglePasswords() {
+        for (const input of passwordInputs) {
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    }
+    showPasswordsBtn.addEventListener('click', togglePasswords);
+</script>
 
 {% endblock %}
