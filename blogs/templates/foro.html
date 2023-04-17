@@ -5,7 +5,11 @@
 {% block content %}
 <div class="container mt-5">
     <h1>HELP ME</h1>
-    <h3>Bienvenido: username</h3>
+    {% if user.is_authenticated %}
+    <h3>Bienvenido: HOLA</h3>
+    {% else %}
+    <h3>Registrate para poder publicar y comentar</h3>
+    {% endif %}
 </div>
    <!-- Contenido principal -->
 <div class="container-fluid bg-dark text-light py-3">
@@ -13,6 +17,7 @@
       <div class="row">
         <div class="col-md-8">
           <!-- Formulario para publicar -->
+          {% if user.is_authenticated %}
             <h2>Publicar una solicitud</h2>
           <form action="" method="POST">
             {% csrf_token %}
@@ -37,6 +42,8 @@
               </div>
             <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Publicar</button>
           </form>
+          {% endif %}
+          <!-- Fin del formulario -->
           <div style="margin-top: 20px;">
             <!-- Agregar un separador -->
             <hr class="bg-light">

@@ -2,8 +2,27 @@ from django.shortcuts import render
 from datetime import datetime
 from .models import Pubs
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
 from .models import Usuario, Carrera
+from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
 #from django.http import HttpResponse
+
+
+def encriptar_contrasena(contrasena):
+    return contrasena
+
+# Clase registrarse
+class RegistrarUsuario(CreateView):
+    model = User
+    template_name = "registrarse.html"
+    form_class = UserCreationForm
+    success_url = "/foro"
+
+
+
 
 # Create your views here.
 def register_user(request):
@@ -17,26 +36,45 @@ def register_user(request):
         carrera_id = request.POST.get('carrera')
         correo = request.POST.get('email')
         contrasena = request.POST.get('password1')
+        contrasena2 = request.POST.get('password2')
         foto_perfil = request.FILES.get('profile_pic')
 
-        # Guardar objeto Carrera
-        carrera = Carrera.objects.get(pk=carrera_id)
+        try:
+            # Validar que las contraseñas sean iguales
+            if contrasena != contrasena2:
+                raise ValueError("Las contraseñas no coinciden")
 
-        # Guardar objeto Usuario
-        usuario = Usuario(
-            nombre=nombre,
-            apellidos=apellidos,
-            username=username,
-            fecha_nacimiento=fecha_nacimiento,
-            carrera=carrera,
-            correo=correo,
-            contrasena=contrasena,
-            foto_perfil=foto_perfil,
-        )
-        usuario.save()
+            # Validar que el username o el correo no estén registrados
+            if Usuario.objects.filter(Q(username=username) | Q(correo=correo)).exists():
+                raise ValueError("El nombre de usuario o el correo ya está registrado")
 
-        # Redirigir al usuario a una página de éxito
-        return redirect('foro')
+            # Guardar objeto Carrera
+            carrera = Carrera.objects.get(pk=carrera_id)
+
+            # Guardar objeto Usuario
+            usuario = Usuario(
+                nombre=nombre,
+                apellidos=apellidos,
+                username=username,
+                fecha_nacimiento=fecha_nacimiento,
+                carrera=carrera,
+                correo=correo,
+                contrasena=contrasena,
+                foto_perfil=foto_perfil,
+            )
+            usuario.save()
+            request.session['usuario_id'] = usuario.usuario_id
+            login(request, usuario)
+
+            print("El usuario se ha guardado correctamente:", usuario)
+
+            # Redirigir al usuario a una página de éxito
+            return redirect('foro')
+
+        except ValueError as e:
+            # Enviar el error a la vista
+            year = datetime.now().year
+            return render(request, 'signup.html', {'error': str(e), 'year': year})
 
     else:
         year = datetime.now().year
@@ -57,6 +95,7 @@ def inicio(request):
 def foro(request):
     year = datetime.now().year
     return render(request, 'foro.html', {'year': year})
+
 
 def policies(request):
     year = datetime.now().year

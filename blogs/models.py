@@ -1,5 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from storages.backends.s3boto3 import S3Boto3Storage
+import uuid
 
 # Create your models here.
 def get_image_upload_path(instance, filename):
@@ -11,17 +14,20 @@ class Carrera(models.Model):
     nombre_carrera = models.CharField(max_length=255)
 
 #Tabla de usuarios
+
 class Usuario(models.Model):
+    usuario_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
     apellidos = models.CharField(max_length=255)
     username = models.CharField(max_length=255, unique=True)
     fecha_nacimiento = models.DateField()
     carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
-    correo = models.CharField(max_length=255, primary_key=True)
+    correo = models.CharField(max_length=255, unique=True)
     contrasena = models.CharField(max_length=255)
     foto_perfil = models.ImageField(storage=S3Boto3Storage(), upload_to=get_image_upload_path)
     strikes = models.IntegerField(default=0)
     fecha_registro = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
 
 
 
