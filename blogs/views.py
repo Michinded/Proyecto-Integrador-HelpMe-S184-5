@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 #from .models import Usuario
 from blogs.formulario import RegistroForm, RegistroExtra
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 def encriptar_contrasena(contrasena):
     return contrasena
@@ -196,6 +197,7 @@ def publicaciones(request):
     year = datetime.now().year
     return render(request, 'publicaciones.html', {'year': year})
 
+@login_required
 def perfil(request):
     year = datetime.now().year
     #if 'usuario_id' not in request.session:
