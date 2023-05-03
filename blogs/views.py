@@ -161,7 +161,7 @@ def login_user(request):
         # Si la solicitud no es POST, mostrar la página de inicio de sesión
         return render(request, 'login.html', {'year': year, 'error': ''})
 
-
+# Eliminar la sesión del usuario
 def signout(request):
     logout(request)
     return redirect('inicio')
